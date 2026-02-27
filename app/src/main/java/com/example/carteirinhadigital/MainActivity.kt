@@ -1,28 +1,25 @@
 package com.example.carteirinhadigital
 
-import android.R.attr.contentDescription
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.ModifierLocalBeyondBoundsLayout
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.carteirinhadigital.ui.theme.CarteirinhaDigitalTheme
@@ -33,101 +30,133 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            CarteirinhaDigitalTheme() {
+            CarteirinhaDigitalTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    CarteirinhaDeEstudante(modifier = Modifier
-                        .padding(innerPadding)
-                        .fillMaxSize())
+                    CarteirinhaDeEstudante(
+                        modifier = Modifier
+                            .padding(innerPadding)
+                            .fillMaxSize()
+                    )
                 }
             }
         }
     }
 }
 
-//diz que a função vai construir algo na tela (retirando o erro de "Column")
 @Composable
-fun CarteirinhaDeEstudante(modifier: Modifier = Modifier) { //nome: tipo, padrao
+fun CarteirinhaDeEstudante(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+            .background(MaterialTheme.colorScheme.background)
+            .padding(24.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Box(
+        // Logo do SENAI no topo
+        Image(
+            painter = painterResource(R.drawable.senai_s_o_paulo_logo),
+            contentDescription = "logo_senai_sp",
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 32.dp),
-            contentAlignment = Alignment.Center
-        ) {
-            Image(
-                painter = painterResource(R.drawable.senai_s_o_paulo_logo),
-                contentDescription = "logo_senai_sp",
-                modifier = Modifier
-                    .size(180.dp)
-                    .padding(top = 24.dp)
-            )
-        }
+                .height(60.dp)
+                .fillMaxWidth(0.6f)
+        )
 
-        androidx.compose.material3.ElevatedCard(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 8.dp),
-            colors = androidx.compose.material3.CardDefaults.elevatedCardColors(
-                containerColor = androidx.compose.material3.MaterialTheme.colorScheme.surfaceVariant
+        Spacer(modifier = Modifier.height(24.dp))
+
+        // Cartão principal da carteirinha
+        ElevatedCard(
+            modifier = Modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(16.dp),
+            colors = CardDefaults.elevatedCardColors(
+                containerColor = MaterialTheme.colorScheme.surfaceVariant
             )
         ) {
             Column(
                 modifier = Modifier
-                    .padding(24.dp)
+                    .padding(20.dp)
                     .fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                // Informações do Aluno
-                InfoRow(label = "NOME", value = "Vierinha")
-                androidx.compose.foundation.layout.Spacer(modifier = Modifier.size(12.dp))
-                InfoRow(label = "CURSO", value = "Desenvolvimento de Sistemas")
-
-                androidx.compose.foundation.layout.Spacer(modifier = Modifier.size(32.dp))
-                // QR Code centralizado com borda leve
+                // Foto de Perfil com borda
                 Box(
                     modifier = Modifier
-                        .background(
-                            androidx.compose.ui.graphics.Color.White,
-                            androidx.compose.foundation.shape.RoundedCornerShape(8.dp)
-                        )
-                        .padding(8.dp)
+                        .size(164.dp)
+                        .clip(CircleShape)
+                        .background(MaterialTheme.colorScheme.primary)
+                        .padding(4.dp) // Espessura da borda
                 ) {
-                    QrCode(
-                        conteudo = "vierinhadamassa",
-                        modifier = Modifier.size(200.dp)
+                    Image(
+                        painter = painterResource(R.drawable.perfil_de_usu_rio_do_vetor_avatar_padr_o_179376714),
+                        contentDescription = "foto_perfil",
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .clip(CircleShape)
                     )
                 }
 
+                Spacer(modifier = Modifier.height(20.dp))
+
+                // Informações do Aluno organizadas
+                InfoField(label = "NOME", value = "re Seba's")
+                Spacer(modifier = Modifier.height(12.dp))
+                InfoField(label = "CURSO", value = "Desenvolvimento de Sistemas")
+
+                Spacer(modifier = Modifier.height(24.dp))
+
+                // Container para o QR Code para garantir contraste
+                Surface(
+                    modifier = Modifier.size(180.dp),
+                    shape = RoundedCornerShape(12.dp),
+                    color = Color.White
+                ) {
+                    Box(modifier = Modifier.padding(12.dp)) {
+                        QrCode(conteudo = "Vai ser grande o chororô\n" +
+                                "Vai ser grande o chororô\n" +
+                                "O Gabigol fazendo gol\n" +
+                                "O Cássio levando gol\n" +
+                                "A torcida gritando gol\n" +
+                                "E o narrador narrando o gol\n" +
+                                "E a nação corintiana só naquele chororô\n" +
+                                "\n" +
+                                "Ninguém segura esse flamengo\n" +
+                                "Ninguém segura esse flamengo\n" +
+                                "O goleiro é bom\n" +
+                                "O zagueiro é bom\n" +
+                                "O lateral é bom\n" +
+                                "O meio de campo é bom\n" +
+                                "O atacante é bom\n" +
+                                "Esse flamengo é bom")
+                    }
+                }
+
                 Text(
-                    text = "Aponte para o leitor",
+                    text = "IDENTIDADE DIGITAL",
+                    modifier = Modifier.padding(top = 16.dp),
                     fontSize = 12.sp,
-                    modifier = Modifier.padding(top = 8.dp),
-                    color = androidx.compose.material3.MaterialTheme.colorScheme.onSurfaceVariant
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.primary
                 )
             }
         }
     }
 }
+
 @Composable
-fun InfoRow(label: String, value: String) {
+fun InfoField(label: String, value: String) {
     Column(modifier = Modifier.fillMaxWidth()) {
         Text(
             text = label,
-            fontSize = 12.sp,
+            fontSize = 11.sp,
             fontWeight = FontWeight.ExtraBold,
-            color = androidx.compose.material3.MaterialTheme.colorScheme.primary
+            color = MaterialTheme.colorScheme.primary,
+            letterSpacing = 1.sp
         )
         Text(
             text = value,
             fontSize = 18.sp,
             fontWeight = FontWeight.Medium,
-            color = androidx.compose.material3.MaterialTheme.colorScheme.onSurfaceVariant
+            color = MaterialTheme.colorScheme.onSurfaceVariant
         )
     }
 }
