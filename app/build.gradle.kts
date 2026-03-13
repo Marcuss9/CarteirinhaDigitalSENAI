@@ -58,4 +58,5 @@ dependencies {
     implementation("com.google.android.gms:play-services-base:18.5.0")
     implementation("androidx.compose.ui:ui-text-google-fonts")
     implementation("com.google.zxing:core:3.5.3")
+    implementation("androidx.navigation:navigation-compose:2.7.4")
 }

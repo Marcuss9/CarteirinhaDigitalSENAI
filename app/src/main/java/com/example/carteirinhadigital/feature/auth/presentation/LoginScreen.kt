@@ -1,4 +1,4 @@
-package com.example.carteirinhadigital
+package com.example.carteirinhadigital.feature.auth.presentation
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -7,8 +7,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -16,14 +14,12 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ModifierLocalBeyondBoundsLayout
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.carteirinhadigital.ui.theme.CarteirinhaDigitalTheme
+import com.example.carteirinhadigital.core.designsystem.theme.CarteirinhaDigitalTheme
 
 @Composable
-fun LoginView(modifier: Modifier = Modifier){
+fun LoginScreen(modifier: Modifier = Modifier){
     Column (
         modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -74,7 +70,7 @@ fun LoginView(modifier: Modifier = Modifier){
 @Composable
 fun PreviewLoginClaro() {
     CarteirinhaDigitalTheme(darkTheme = false) {
-        LoginView()
+        LoginScreen()
     }
 }
 
@@ -85,6 +81,6 @@ fun PreviewLoginClaro() {
 @Composable
 fun PreviewLoginEscuro() {
     CarteirinhaDigitalTheme(darkTheme = true) {
-        LoginView()
+        LoginScreen()
     }
 }

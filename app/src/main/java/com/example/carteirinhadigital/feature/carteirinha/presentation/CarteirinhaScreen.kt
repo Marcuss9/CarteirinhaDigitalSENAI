@@ -1,4 +1,4 @@
-package com.example.carteirinhadigital
+package com.example.carteirinhadigital.feature.carteirinha.presentation
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -25,7 +25,11 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.carteirinhadigital.ui.theme.CarteirinhaDigitalTheme
+import com.example.carteirinhadigital.R
+import com.example.carteirinhadigital.core.designsystem.theme.CarteirinhaDigitalTheme
+import com.example.carteirinhadigital.feature.auth.presentation.LoginScreen
+import com.example.carteirinhadigital.feature.carteirinha.presentation.component.LabelText
+import com.example.carteirinhadigital.feature.carteirinha.presentation.component.ValueText
 import com.rafaelcosta.myapplication.QrCode
 
     @Composable
@@ -39,7 +43,7 @@ import com.rafaelcosta.myapplication.QrCode
         ) {
             // Logo SENAI
             Image(
-                painter = painterResource(id = com.example.carteirinhadigital.R.drawable.senai_s_o_paulo_logo),
+                painter = painterResource(id = R.drawable.senai_s_o_paulo_logo),
                 contentDescription = "logo_senai_sp",
                 modifier = Modifier
                     .height(60.dp)
@@ -70,7 +74,7 @@ import com.rafaelcosta.myapplication.QrCode
                             .padding(3.dp)
                     ) {
                         Image(
-                            painter = painterResource(id = com.example.carteirinhadigital.R.drawable.perfil_de_usu_rio_do_vetor_avatar_padr_o_179376714),
+                            painter = painterResource(id = R.drawable.perfil_de_usu_rio_do_vetor_avatar_padr_o_179376714),
                             contentDescription = "foto_perfil",
                             contentScale = ContentScale.Crop,
                             modifier = Modifier
@@ -83,7 +87,7 @@ import com.rafaelcosta.myapplication.QrCode
 
                     Column(modifier = Modifier.fillMaxWidth()) {
                         LabelText(label = "NOME")
-                        ValueText(value = "Vierinha")
+                        ValueText(value = "Marcus")
 
                         Spacer(modifier = Modifier.height(12.dp))
 
@@ -100,7 +104,7 @@ import com.rafaelcosta.myapplication.QrCode
                         color = Color.White
                     ) {
                         Box(modifier = Modifier.padding(12.dp)) {
-                            QrCode(conteudo = "vierinhadamassa")
+                            QrCode(conteudo = "Ola amigo")
                         }
                     }
                 }
@@ -115,7 +119,7 @@ import com.rafaelcosta.myapplication.QrCode
 @Composable
 fun PreviewCarteirinhaClaro() {
     CarteirinhaDigitalTheme(darkTheme = false) {
-        LoginView()
+        LoginScreen()
     }
 }
 
@@ -126,6 +130,6 @@ fun PreviewCarteirinhaClaro() {
 @Composable
 fun PreviewCarteirinhaEscuro() {
     CarteirinhaDigitalTheme(darkTheme = true ) {
-        LoginView()
+        LoginScreen()
     }
 }

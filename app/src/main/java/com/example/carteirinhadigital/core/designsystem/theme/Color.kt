@@ -1,4 +1,4 @@
-package com.example.carteirinhadigital.ui.theme
+package com.example.carteirinhadigital.core.designsystem.theme
 import androidx.compose.ui.graphics.Color
 
 val primaryLight = Color(0xFF6D5E0F)
