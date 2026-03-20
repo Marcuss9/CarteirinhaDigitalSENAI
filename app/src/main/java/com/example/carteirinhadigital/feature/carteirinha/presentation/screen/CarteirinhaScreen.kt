@@ -1,5 +1,6 @@
-package com.example.carteirinhadigital.feature.carteirinha.presentation
+package com.example.carteirinhadigital.feature.carteirinha.presentation.screen
 
+import LoginScreen
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -25,15 +26,16 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.carteirinhadigital.R
-import com.example.carteirinhadigital.core.designsystem.theme.CarteirinhaDigitalTheme
-import com.example.carteirinhadigital.feature.auth.presentation.LoginScreen
+import com.example.carteirinhadigital.core.theme.CarteirinhaDigitalTheme
 import com.example.carteirinhadigital.feature.carteirinha.presentation.component.LabelText
 import com.example.carteirinhadigital.feature.carteirinha.presentation.component.ValueText
 import com.rafaelcosta.myapplication.QrCode
 
     @Composable
-    fun CarteirinhaView(modifier: Modifier = Modifier) {
+    fun CarteirinhaScreen(modifier: Modifier = Modifier) {
         Column(
             modifier = modifier
                 .fillMaxSize()
@@ -74,7 +76,7 @@ import com.rafaelcosta.myapplication.QrCode
                             .padding(3.dp)
                     ) {
                         Image(
-                            painter = painterResource(id = R.drawable.perfil_de_usu_rio_do_vetor_avatar_padr_o_179376714),
+                            painter = painterResource(id = R.drawable.avatar_login),
                             contentDescription = "foto_perfil",
                             contentScale = ContentScale.Crop,
                             modifier = Modifier
@@ -119,7 +121,7 @@ import com.rafaelcosta.myapplication.QrCode
 @Composable
 fun PreviewCarteirinhaClaro() {
     CarteirinhaDigitalTheme(darkTheme = false) {
-        LoginScreen()
+        LoginScreen(navController = rememberNavController())
     }
 }
 
@@ -129,7 +131,7 @@ fun PreviewCarteirinhaClaro() {
 )
 @Composable
 fun PreviewCarteirinhaEscuro() {
-    CarteirinhaDigitalTheme(darkTheme = true ) {
-        LoginScreen()
+    CarteirinhaDigitalTheme(darkTheme = true) {
+        LoginScreen(navController = rememberNavController())
     }
 }

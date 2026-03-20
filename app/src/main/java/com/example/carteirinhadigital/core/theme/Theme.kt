@@ -1,4 +1,4 @@
-package com.example.carteirinhadigital.core.designsystem.theme
+package com.example.carteirinhadigital.core.theme
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
