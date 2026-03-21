@@ -31,7 +31,8 @@ fun AppNavHost(
         composable(Routes.Carteirinha.route) {
             CarteirinhaScreen(
                 modifier = Modifier
-                    .fillMaxSize()
+                    .fillMaxSize(),
+                navController = navController
             )
         }
         composable(Routes.Home.route) {

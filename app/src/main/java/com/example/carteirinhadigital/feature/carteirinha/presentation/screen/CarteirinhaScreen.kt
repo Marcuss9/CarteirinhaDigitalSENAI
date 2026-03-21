@@ -13,8 +13,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -34,104 +38,14 @@ import com.example.carteirinhadigital.feature.carteirinha.presentation.component
 import com.example.carteirinhadigital.feature.carteirinha.presentation.component.ValueText
 import com.rafaelcosta.myapplication.QrCode
 
-    @Composable
-    fun CarteirinhaScreen(modifier: Modifier = Modifier) {
-        Column(
-            modifier = modifier
-                .fillMaxSize()
-                .background(MaterialTheme.colorScheme.background)
-                .padding(24.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            // Logo SENAI
-            Image(
-                painter = painterResource(id = R.drawable.senai_s_o_paulo_logo),
-                contentDescription = "logo_senai_sp",
-                modifier = Modifier
-                    .height(60.dp)
-                    .fillMaxWidth(0.6f)
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            ElevatedCard(
-                modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(16.dp),
-                colors = CardDefaults.elevatedCardColors(
-                    containerColor = MaterialTheme.colorScheme.surfaceVariant
-                )
-            ) {
-                Column(
-                    modifier = Modifier
-                        .padding(20.dp)
-                        .fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    // Foto de Perfil
-                    Box(
-                        modifier = Modifier
-                            .size(160.dp)
-                            .clip(CircleShape)
-                            .background(MaterialTheme.colorScheme.primary)
-                            .padding(3.dp)
-                    ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.avatar_login),
-                            contentDescription = "foto_perfil",
-                            contentScale = ContentScale.Crop,
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .clip(CircleShape)
-                        )
-                    }
-
-                    Spacer(modifier = Modifier.height(20.dp))
-
-                    Column(modifier = Modifier.fillMaxWidth()) {
-                        LabelText(label = "NOME")
-                        ValueText(value = "Marcus")
-
-                        Spacer(modifier = Modifier.height(12.dp))
-
-                        LabelText(label = "CURSO")
-                        ValueText(value = "Desenvolvimento de Sistemas")
-                    }
-
-                    Spacer(modifier = Modifier.height(24.dp))
-
-                    // QR Code
-                    Surface(
-                        modifier = Modifier.size(180.dp),
-                        shape = RoundedCornerShape(12.dp),
-                        color = Color.White
-                    ) {
-                        Box(modifier = Modifier.padding(12.dp)) {
-                            QrCode(conteudo = "Ola amigo")
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-@Preview(
-    showBackground = true,
-    showSystemUi = true
-)
 @Composable
-fun PreviewCarteirinhaClaro() {
-    CarteirinhaDigitalTheme(darkTheme = false) {
-        LoginScreen(navController = rememberNavController())
-    }
-}
-
-@Preview(
-    showBackground = true,
-    showSystemUi = true
-)
-@Composable
-fun PreviewCarteirinhaEscuro() {
-    CarteirinhaDigitalTheme(darkTheme = true) {
-        LoginScreen(navController = rememberNavController())
-    }
+fun CarteirinhaScreen(
+    modifier: Modifier = Modifier,
+    navController: NavController
+) {
+    CarteirinhaContent(
+        qrCodeContent = "seunumerodematriculaaqui",
+        modifier = modifier,
+        navController
+    )
 }

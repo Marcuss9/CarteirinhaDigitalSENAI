@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import com.example.carteirinhadigital.core.navigation.Routes
 
 @Composable
 fun HomeScreen(navController: NavHostController) {
@@ -17,7 +18,7 @@ fun HomeScreen(navController: NavHostController) {
     ) {
         Button(
             onClick = {
-                navController.navigate("carteirinha_route")
+                navController.navigate(Routes.Carteirinha.route)
             }
         ) {
             Text(text = "Acessar Carteirinha")
