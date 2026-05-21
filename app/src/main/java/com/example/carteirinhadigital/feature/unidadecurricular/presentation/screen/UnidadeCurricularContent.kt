@@ -1,31 +1,81 @@
 package com.example.carteirinhadigital.feature.unidadecurricular.presentation.screen
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.carteirinhadigital.core.theme.CarteirinhaDigitalTheme
 import com.example.carteirinhadigital.feature.unidadecurricular.domain.model.UnidadeCurricular
+import com.example.carteirinhadigital.feature.unidadecurricular.presentation.UnidadeCurricularEvent
+import com.example.carteirinhadigital.feature.unidadecurricular.presentation.UnidadeCurricularUIState
 import com.example.carteirinhadigital.feature.unidadecurricular.presentation.component.UnidadeCurricularCard
 
 @Composable
 fun UnidadeCurricularContent (
     modifier: Modifier = Modifier,
-    unidadesCurriculares: List<UnidadeCurricular>
+    uiState: UnidadeCurricularUIState,
+    onEvent: (UnidadeCurricularEvent) -> Unit
 ) {
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(top = 16.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp)
-    ) {
-        items(unidadesCurriculares){ uc ->
-            UnidadeCurricularCard(unidadeCurricular = uc)
+    when {
+        uiState.isLoading -> {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(24.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                CircularProgressIndicator()
+                Text(
+                    text = "Buscando unidades curriculares...",
+                    modifier = Modifier.padding(top = 12.dp)
+                )
+            }
+        }
+
+        uiState.errorMessages != null -> {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(24.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                Text(
+                    text = uiState.errorMessages,
+                    color = MaterialTheme.colorScheme.error
+                )
+                Button(
+                    onClick = { onEvent(UnidadeCurricularEvent.OnTentarNovamenteClick) },
+                    modifier = Modifier.padding(top = 12.dp)
+                ) {
+                    Text("Tentar novamente")
+                }
+            }
+        }
+
+        else -> {
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(top = 16.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                items(uiState.unidadesCurriculares) { uc ->
+                    UnidadeCurricularCard(unidadeCurricular = uc)
+                }
+            }
         }
     }
 }
@@ -38,27 +88,13 @@ fun UnidadeCurricularContent (
 fun UnidadeCurricularContentPreviwe(){
     CarteirinhaDigitalTheme {
         UnidadeCurricularContent(
-            unidadesCurriculares =
-                listOf(
-                    UnidadeCurricular(
-                        id = "1",
-                        nome = "Backend",
-                        professor = "Manoel",
-                        nota1 = 8.5,
-                        nota2 = 7.0,
-                        media = 7.75,
-                        faltas = 2
-                    ),
-                    UnidadeCurricular(
-                        id = "2",
-                        nome = "Banco de Dados",
-                        professor = "Paulo",
-                        nota1 = 8.5,
-                        nota2 = 9.0,
-                        media = 8.75,
-                        faltas = 3
-                    )
-                )
+            uiState = UnidadeCurricularUIState(
+            unidadesCurriculares = listOf(
+                UnidadeCurricular("1", "Programação Mobile", "Rafael Costa", 8.5, 9.0, 8.75, 2),
+                UnidadeCurricular("2", "Banco de Dados", "Ana Souza", 7.5, 8.0, 7.75, 1)
+            )
+        ),
+        onEvent = {}
         )
     }
 }
