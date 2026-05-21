@@ -1,0 +1,9 @@
+package com.example.carteirinhadigital.feature.unidadecurricular.presentation.screen
+
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
+
+@Composable
+fun UnidadeCurricularScreen (modifier: Modifier) {
+}
