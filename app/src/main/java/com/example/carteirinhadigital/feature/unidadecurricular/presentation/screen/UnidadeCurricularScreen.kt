@@ -11,6 +11,7 @@ import com.example.carteirinhadigital.feature.unidadecurricular.presentation.Uni
 import com.example.carteirinhadigital.feature.unidadecurricular.presentation.UnidadeCurricularViewModel
 import com.example.carteirinhadigital.feature.unidadecurricular.presentation.component.UnidadeCurricularCard
 
+
 @Composable
 fun UnidadeCurricularScreen (
     usuarioNome: String,
